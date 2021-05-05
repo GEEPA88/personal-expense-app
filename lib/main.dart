@@ -50,7 +50,7 @@ class MyHomePage extends StatelessWidget {
         title: Text('Flutter App'),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        //mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Card(
@@ -60,6 +60,12 @@ class MyHomePage extends StatelessWidget {
               child: Text('Chart!'),
             ),
             elevation: 10,
+          ),
+          Card(
+            child: Column(children: <Widget>[
+              TextField(),
+              TextField(),
+            ]),
           ),
           Column(
             children: transaction.map((tx) {
@@ -98,7 +104,7 @@ class MyHomePage extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          DateFormat().format(tx.date),
+                          DateFormat('dd-MM-yyyy').format(tx.date),
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
