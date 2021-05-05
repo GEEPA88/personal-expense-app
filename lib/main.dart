@@ -30,18 +30,6 @@ class MyHomePage extends StatelessWidget {
       amount: 20,
       date: DateTime.now(),
     ),
-    Transaction(
-      id: 't3',
-      title: 'cycle',
-      amount: 300,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't4',
-      title: 'chair',
-      amount: 50,
-      date: DateTime.now(),
-    ),
   ];
   @override
   Widget build(BuildContext context) {
@@ -59,13 +47,31 @@ class MyHomePage extends StatelessWidget {
               color: Colors.blue,
               child: Text('Chart!'),
             ),
-            elevation: 10,
+            elevation: 5,
           ),
           Card(
-            child: Column(children: <Widget>[
-              TextField(),
-              TextField(),
-            ]),
+            child: Container(
+              padding: EdgeInsets.all(5),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  TextField(
+                    decoration: InputDecoration(labelText: 'Title'),
+                  ),
+                  TextField(
+                    decoration: InputDecoration(labelText: 'Amount'),
+                  ),
+                  TextButton(
+                    style: ButtonStyle(
+                      foregroundColor:
+                          MaterialStateProperty.all<Color>(Colors.blue),
+                    ),
+                    onPressed: () {},
+                    child: Text('Add transaction'),
+                  )
+                ],
+              ),
+            ),
           ),
           Column(
             children: transaction.map((tx) {
@@ -78,10 +84,8 @@ class MyHomePage extends StatelessWidget {
                       decoration: BoxDecoration(
                         border: Border.all(
                           color: Colors.orange,
-                          width: 2,
                         ),
                       ),
-                      padding: EdgeInsets.all(10),
                       child: Text(
                         '\$${tx.amount}',
                         style: TextStyle(
@@ -97,7 +101,7 @@ class MyHomePage extends StatelessWidget {
                         Text(
                           tx.title,
                           style: TextStyle(
-                            fontSize: 25,
+                            fontSize: 20,
                             fontWeight: FontWeight.bold,
                             fontStyle: FontStyle.normal,
                             color: Colors.red,
@@ -107,7 +111,7 @@ class MyHomePage extends StatelessWidget {
                           DateFormat('dd-MM-yyyy').format(tx.date),
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 20,
+                            fontSize: 15,
                             color: Colors.grey,
                           ),
                         ),
