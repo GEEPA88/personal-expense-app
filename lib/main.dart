@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 import './widgets/user_transactions.dart';
 
@@ -31,9 +32,9 @@ class MyHomePage extends StatelessWidget {
           //mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Card(
-              child: Container(
-                width: double.infinity,
+            Container(
+              width: double.infinity,
+              child: Card(
                 color: Colors.blue,
                 child: Text('Chart!'),
               ),
