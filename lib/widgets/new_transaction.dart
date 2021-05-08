@@ -12,19 +12,23 @@ class NewTransaction extends StatefulWidget {
 
 class _NewTransactionState extends State<NewTransaction> {
   final _titleController = TextEditingController();
-
   final _amountController = TextEditingController();
   DateTime _selectedDate;
+
   void _submitData() {
+    if (_amountController.text.isEmpty) {
+      return;
+    }
     final enteredTitle = _titleController.text;
     final enteredAmount = double.parse(_amountController.text);
-    if (enteredTitle.isEmpty || enteredAmount <= 0) {
+    if (enteredTitle.isEmpty || enteredAmount <= 0 || _selectedDate == null) {
       return;
     }
 
     widget.addTx(
       enteredTitle,
       enteredAmount,
+      _selectedDate,
     );
     Navigator.of(context).pop();
   }
@@ -74,14 +78,16 @@ class _NewTransactionState extends State<NewTransaction> {
               height: 70,
               child: Row(
                 children: <Widget>[
-                  Text(
-                    _selectedDate == null
-                        ? 'No date chosen!'
-                        : 'Picked Date : ${DateFormat.yMd().format(_selectedDate)}',
+                  Expanded(
+                    child: Text(
+                      _selectedDate == null
+                          ? 'No date chosen!'
+                          : 'Picked Date : ${DateFormat.yMd().format(_selectedDate)}',
+                    ),
                   ),
                   TextButton(
                     child: Text(
-                      'Choose Date',
+                      'Pick the Date',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
@@ -92,12 +98,12 @@ class _NewTransactionState extends State<NewTransaction> {
               ),
             ),
             ElevatedButton(
-              child: Text('ADD TRANSACTION'),
-              style: ElevatedButton.styleFrom(
-                primary: Colors.pinkAccent,
-                onPrimary: Colors.white,
-              ),
+              child: Text('Add Transaction'),
               onPressed: _submitData,
+              style: ElevatedButton.styleFrom(
+                primary: Colors.white,
+                onPrimary: Colors.pink,
+              ),
             ),
           ],
         ),
