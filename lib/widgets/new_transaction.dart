@@ -74,11 +74,10 @@ class _NewTransactionState extends State<NewTransaction> {
               onSubmitted: (_) => _submitData(),
               // onChanged: (val) => amountInput = val;,
             ),
-            Container(
-              height: 70,
+            Expanded(
               child: Row(
                 children: <Widget>[
-                  Expanded(
+                  Container(
                     child: Text(
                       _selectedDate == null
                           ? 'No date chosen!'
