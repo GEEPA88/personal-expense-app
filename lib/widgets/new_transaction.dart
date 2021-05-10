@@ -21,6 +21,7 @@ class _NewTransactionState extends State<NewTransaction> {
     }
     final enteredTitle = _titleController.text;
     final enteredAmount = double.parse(_amountController.text);
+
     if (enteredTitle.isEmpty || enteredAmount <= 0 || _selectedDate == null) {
       return;
     }
@@ -55,7 +56,7 @@ class _NewTransactionState extends State<NewTransaction> {
     return Card(
       elevation: 5,
       child: Container(
-        padding: EdgeInsets.all(2),
+        padding: EdgeInsets.all(10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
@@ -74,7 +75,8 @@ class _NewTransactionState extends State<NewTransaction> {
               onSubmitted: (_) => _submitData(),
               // onChanged: (val) => amountInput = val;,
             ),
-            Expanded(
+            Container(
+              height: 70,
               child: Row(
                 children: <Widget>[
                   Container(

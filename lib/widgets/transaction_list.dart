@@ -5,6 +5,7 @@ import '../models/transaction.dart';
 class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
   final Function deleteTx;
+
   TransactionList(this.transactions, this.deleteTx);
 
   @override
@@ -22,11 +23,12 @@ class TransactionList extends StatelessWidget {
                   height: 10,
                 ),
                 Container(
-                    height: 200,
-                    child: Image.asset(
-                      'assets/fonts/images/waiting.png',
-                      fit: BoxFit.cover,
-                    )),
+                  height: 100,
+                  child: Image.asset(
+                    'assets/fonts/images/waiting.png',
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ],
             )
           : ListView.builder(
@@ -41,9 +43,10 @@ class TransactionList extends StatelessWidget {
                     leading: CircleAvatar(
                       radius: 30,
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(10),
                         child: FittedBox(
-                            child: Text('\$${transactions[index].amount}')),
+                          child: Text('\$${transactions[index].amount}'),
+                        ),
                       ),
                     ),
                     title: Text(
