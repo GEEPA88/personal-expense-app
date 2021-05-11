@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:personal_expense_app/widgets/chart.dart';
 import './widgets/new_transaction.dart';
 import './widgets/transaction_list.dart';
 import './models/transaction.dart';
 import './widgets/chart.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  //WidgetsFlutterBinding.ensureInitialized();
+  //SystemChrome.setPreferredOrientations(
+  //[
+  // DeviceOrientation.portraitUp,
+  //DeviceOrientation.portraitDown,
+  //],
+  //);
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -28,7 +38,7 @@ class MyApp extends StatelessWidget {
             textTheme: ThemeData.light().textTheme.copyWith(
                   headline6: TextStyle(
                     fontFamily: 'OpenSans',
-                    fontSize: 20,
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -60,6 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
     //   date: DateTime.now(),
     // ),
   ];
+  bool _showChart = false;
   List<Transaction> get _recentTransactions {
     return _userTransactions.where((tx) {
       return tx.date.isAfter(
@@ -125,6 +136,19 @@ class _MyHomePageState extends State<MyHomePage> {
           //mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+            Row(
+              children: <Widget>[
+                Text('show chart'),
+                Switch(
+                  value: _showChart,
+                  onChanged: (val) {
+                    setState(() {
+                      _showChart = val;
+                    });
+                  },
+                )
+              ],
+            ),
             Container(
               height: (MediaQuery.of(context).size.height -
                       appbar.preferredSize.height -
