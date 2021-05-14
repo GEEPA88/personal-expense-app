@@ -73,6 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // ),
   ];
   bool _showChart = false;
+
   List<Transaction> get _recentTransactions {
     return _userTransactions.where((tx) {
       return tx.date.isAfter(
@@ -116,15 +117,16 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  List<Widget> _buildLanddscapeContent(
+  List<Widget> _buildLandscapeContent(
     MediaQueryData mediaQuery,
-    AppBar appBar,
+    PreferredSizeWidget appBar,
     Widget txListWidget,
   ) {
     return [
       Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text('show chart', style: Theme.of(context).textTheme.headline6),
+          Text('Show Chart', style: Theme.of(context).textTheme.headline6),
           Switch.adaptive(
             activeColor: Theme.of(context).accentColor,
             value: _showChart,
@@ -133,7 +135,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 _showChart = val;
               });
             },
-          )
+          ),
         ],
       ),
       _showChart
@@ -150,7 +152,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   List<Widget> _buildPortraitContent(
     MediaQueryData mediaQuery,
-    AppBar appBar,
+    PreferredSizeWidget appBar,
     Widget txListWidget,
   ) {
     return [
@@ -167,13 +169,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    print('build() MyHonePageState');
+    print('build() MyHomePageState');
     final mediaQuery = MediaQuery.of(context);
     final isLandscape = mediaQuery.orientation == Orientation.landscape;
-    final PreferredSizeWidget appbar = Platform.isIOS
+    final PreferredSizeWidget appBar = Platform.isIOS
         ? CupertinoNavigationBar(
             middle: Text(
-              'Personal expenses app',
+              'Personal Expenses',
             ),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
@@ -187,8 +189,7 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         : AppBar(
             title: Text(
-              'Personal expenses app',
-              style: TextStyle(fontFamily: 'OpenSans'),
+              'Personal Expenses',
             ),
             actions: <Widget>[
               IconButton(
@@ -197,29 +198,31 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ],
           );
-
     final txListWidget = Container(
       height: (mediaQuery.size.height -
-              appbar.preferredSize.height -
+              appBar.preferredSize.height -
               mediaQuery.padding.top) *
           0.7,
       child: TransactionList(_userTransactions, _deleteTransaction),
     );
-
     final pageBody = SafeArea(
       child: SingleChildScrollView(
         child: Column(
-          //mainAxisAlignment: MainAxisAlignment.start,
+          // mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             if (isLandscape)
-              ..._buildLanddscapeContent(
+              ..._buildLandscapeContent(
                 mediaQuery,
-                appbar,
+                appBar,
                 txListWidget,
               ),
             if (!isLandscape)
-              ..._buildPortraitContent(mediaQuery, appbar, txListWidget),
+              ..._buildPortraitContent(
+                mediaQuery,
+                appBar,
+                txListWidget,
+              ),
           ],
         ),
       ),
@@ -227,10 +230,10 @@ class _MyHomePageState extends State<MyHomePage> {
     return Platform.isIOS
         ? CupertinoPageScaffold(
             child: pageBody,
-            navigationBar: appbar,
+            navigationBar: appBar,
           )
         : Scaffold(
-            appBar: appbar,
+            appBar: appBar,
             body: pageBody,
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerFloat,
